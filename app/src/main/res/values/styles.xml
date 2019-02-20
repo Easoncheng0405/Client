@@ -1,11 +1,11 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/color_action_bar</item>
         <item name="colorPrimaryDark">@color/color_status_bar</item>
-        <item name="colorAccent">@color/color_accent</item>
+        <item name="colorAccent">@color/color_normal_button</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
 </resources>

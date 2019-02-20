@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="color_action_bar">#FFFFFF</color>
-    <color name="color_status_bar">#ECECEC</color>
-    <color name="color_accent">#2B59A3</color>
+    <color name="color_status_bar">@color/color_action_bar</color>
+    <color name="color_normal_button">#2B59A3</color>
 </resources>
