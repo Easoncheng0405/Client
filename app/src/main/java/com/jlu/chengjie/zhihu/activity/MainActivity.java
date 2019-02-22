@@ -14,10 +14,12 @@
  *    limitations under the License.
  */
 
-package com.jlu.chengjie.zhihu;
+package com.jlu.chengjie.zhihu.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.jlu.chengjie.zhihu.R;
 
 public class MainActivity extends AppCompatActivity {
 
