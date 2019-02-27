@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <!--
   ~    Copyright [2019] [chengjie.jlu@qq.com]
   ~
@@ -14,17 +16,13 @@
   ~    limitations under the License.
   -->
 
-<resources>
-    <string name="app_name">ZhiHu</string>
-    <string name="search_in_zhihu">Search in ZhiHu</string>
-    <string name="tab_home">Home</string>
-    <string name="tab_idea">Idea</string>
-    <string name="tab_edit">Edit</string>
-    <string name="tab_msg">Msg</string>
-    <string name="tab_my">My</string>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <string name="tab_top_follow">Follow</string>
-    <string name="tab_top_recommend">Recommend</string>
-    <string name="tab_top_billboard">Billboard</string>
-    <string name="tab_top_article">Article</string>
-</resources>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/tab_msg" />
+</RelativeLayout>

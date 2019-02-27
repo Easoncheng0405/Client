@@ -16,4 +16,15 @@
 
 <resources>
     <string name="app_name">知乎</string>
+    <string name="search_in_zhihu">搜索知乎内容</string>
+    <string name="tab_home">首页</string>
+    <string name="tab_idea">想法</string>
+    <string name="tab_edit">创建</string>
+    <string name="tab_msg">消息</string>
+    <string name="tab_my">我的</string>
+
+    <string name="tab_top_follow">关注</string>
+    <string name="tab_top_recommend">推荐</string>
+    <string name="tab_top_billboard">热榜</string>
+    <string name="tab_top_article">文章</string>
 </resources>
