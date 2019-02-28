@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 
 import com.jlu.chengjie.zhihu.R;
 import com.jlu.chengjie.zhihu.adapter.FragmentAdapter;
+import com.jlu.chengjie.zhihu.fragment.home.Recommend;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,9 +52,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
-        viewPager.setAdapter(new FragmentAdapter(getChildFragmentManager(), getCustomFragments()));
-        tabLayout.setupWithViewPager(viewPager);
-        init();
+        initTabLayout();
         return view;
     }
 
@@ -61,14 +60,16 @@ public class HomeFragment extends Fragment {
         return new ArrayList<Fragment>() {
             {
                 add(new IdeaFragment());
-                add(new EditFragment());
+                add(new Recommend());
                 add(new MessageFragment());
                 add(new MyFragment());
             }
         };
     }
 
-    private void init() {
+    private void initTabLayout() {
+        viewPager.setAdapter(new FragmentAdapter(getChildFragmentManager(), getCustomFragments()));
+        tabLayout.setupWithViewPager(viewPager);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
