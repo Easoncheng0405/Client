@@ -54,7 +54,12 @@ public class Recommend extends Fragment {
         List<RecommendQuestion> list = new ArrayList<>(50);
         for (int i = 0; i < 50; i++) {
             RecommendQuestion question = new RecommendQuestion();
-            question.title = i + "";
+            question.title = "现在国内大公司主要用C#还是JAVA?";
+            question.authorName = "Ben Lampson";
+            question.signature = "已认证的官方账号";
+            question.content = "两种语言其实没有太大差别.都有1L..就算有差距也就那样...我自己是" +
+                    ".NET.不过大部分猎头找我都是JAVA.因为J...";
+            question.questionInfo = "10赞同 · 5 评论 · 1 收藏";
             list.add(question);
         }
 

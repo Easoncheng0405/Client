@@ -20,4 +20,14 @@ public class RecommendQuestion {
 
     public String title;
 
+    public String imageUrl;
+
+    public String authorName;
+
+    public String signature;
+
+    public String content;
+
+    public String questionInfo;
+
 }
