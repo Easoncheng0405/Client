@@ -28,6 +28,7 @@ import android.widget.TextView;
 
 import com.jlu.chengjie.zhihu.R;
 import com.jlu.chengjie.zhihu.adapter.FragmentAdapter;
+import com.jlu.chengjie.zhihu.adapter.IScrollToHead;
 import com.jlu.chengjie.zhihu.fragment.EditFragment;
 import com.jlu.chengjie.zhihu.fragment.HomeFragment;
 import com.jlu.chengjie.zhihu.fragment.IdeaFragment;
@@ -58,27 +59,28 @@ public class MainActivity extends AppCompatActivity {
     private int[] title = new int[]{R.string.tab_home, R.string.tab_idea,
             R.string.tab_edit, R.string.tab_msg, R.string.tab_my};
 
+    private Fragment currentFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), getCustomFragments()));
+        viewPager.setAdapter(new FragmentAdapter(getSupportFragmentManager(), fragments));
         footerBar.setupWithViewPager(viewPager);
         initFooterTab();
     }
 
-    private List<Fragment> getCustomFragments() {
-        return new ArrayList<Fragment>() {
-            {
-                add(new HomeFragment());
-                add(new IdeaFragment());
-                add(new EditFragment());
-                add(new MessageFragment());
-                add(new MyFragment());
-            }
-        };
-    }
+    private List<Fragment> fragments = new ArrayList<Fragment>() {
+        {
+            add(new HomeFragment());
+            add(new IdeaFragment());
+            add(new EditFragment());
+            add(new MessageFragment());
+            add(new MyFragment());
+        }
+    };
+
 
     @SuppressWarnings("ConstantConditions")
     private void initFooterTab() {
@@ -90,25 +92,32 @@ public class MainActivity extends AppCompatActivity {
         footerBar.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Drawable drawable = getDrawable(active[tab.getPosition()]);
+                int position = tab.getPosition();
+                currentFragment = fragments.get(position);
+                Drawable drawable = getDrawable(active[position]);
                 ((ImageView) tab.getCustomView().findViewById(R.id.tab_icon)).setImageDrawable(drawable);
                 int color = getColor(R.color.color_normal_button);
                 ((TextView) tab.getCustomView().findViewById(R.id.tab_text)).setTextColor(color);
-                ZLog.d(TAG, "onTabSelected: " + tab.getPosition());
+                ZLog.d(TAG, "onTabSelected: " + position);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                Drawable drawable = getDrawable(normal[tab.getPosition()]);
+                int position = tab.getPosition();
+                Drawable drawable = getDrawable(normal[position]);
                 ((ImageView) tab.getCustomView().findViewById(R.id.tab_icon)).setImageDrawable(drawable);
                 int color = getColor(R.color.color_black);
                 ((TextView) tab.getCustomView().findViewById(R.id.tab_text)).setTextColor(color);
-                ZLog.d(TAG, "onTabUnselected: " + tab.getPosition());
+                ZLog.d(TAG, "onTabUnselected: " + position);
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                ZLog.d(TAG, "onTabReselected: " + tab.getPosition());
+                int position = tab.getPosition();
+                if (currentFragment instanceof IScrollToHead) {
+                    ((IScrollToHead) currentFragment).scrollToHead();
+                }
+                ZLog.d(TAG, "onTabReselected: " + position);
             }
         });
         for (int i = 1; i <= footerBar.getTabCount(); i++) {

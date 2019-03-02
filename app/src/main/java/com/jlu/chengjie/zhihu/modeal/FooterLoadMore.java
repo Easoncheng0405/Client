@@ -16,24 +16,12 @@
 
 package com.jlu.chengjie.zhihu.modeal;
 
-public class RecommendQuestion implements IDisplayItem {
+public class FooterLoadMore implements IDisplayItem {
 
-    public String title;
-
-    public String imageUrl;
-
-    public String authorName;
-
-    public String signature;
-
-    public String content;
-
-    public String questionInfo;
-
-    public String url;
+    public String text;
 
     @Override
     public ViewType getViewType() {
-        return ViewType.NORMAL_QUESTION;
+        return ViewType.FOOTER_LOADING_MORE;
     }
 }

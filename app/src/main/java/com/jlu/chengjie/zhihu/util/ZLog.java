@@ -41,6 +41,10 @@ public class ZLog {
         if (debug) Log.e(addPreFix(tag), msg);
     }
 
+    public static void e(String tag, String msg, Exception e) {
+        if (debug) Log.e(addPreFix(tag), msg, e);
+    }
+
     public static void setDebug(boolean on) {
         debug = on;
     }

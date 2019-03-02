@@ -22,88 +22,75 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestManager;
 import com.jlu.chengjie.zhihu.R;
-import com.jlu.chengjie.zhihu.modeal.RecommendQuestion;
+import com.jlu.chengjie.zhihu.modeal.IDisplayItem;
+import com.jlu.chengjie.zhihu.view.IDisplay;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdapter.ViewHolder> {
 
-    private Context context;
+    private List<IDisplayItem> items;
 
-    private List<RecommendQuestion> questions;
+    private LayoutInflater inflater;
 
-    private RequestManager manager;
+    private ScrollBottomListener listener;
 
-    public RecommendListAdapter(Context context, List<RecommendQuestion> questions) {
-        this.questions = questions;
-        this.context = context;
-        this.manager = Glide.with(context);
+    private static final int NEAR_BOTTOM_COUNT = 3;
+
+    public RecommendListAdapter(Context context, List<IDisplayItem> items, ScrollBottomListener listener) {
+        this.items = items;
+        this.inflater = LayoutInflater.from(context);
+        this.listener = listener;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_recommend_question, viewGroup, false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int type) {
+        View view = inflater.inflate(getLayoutId(type), viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        RecommendQuestion question = questions.get(i);
-        viewHolder.title.setText(question.title);
-        viewHolder.authorName.setText(question.authorName);
-        viewHolder.signature.setText(question.signature);
-        viewHolder.content.setText(question.content);
-        viewHolder.questionInfo.setText(question.questionInfo);
-        manager.load(question.imageUrl)
-                .error(R.drawable.avatar)
-                .into(viewHolder.avatar);
+        viewHolder.contentView.onBind(items.get(i));
+        if (getItemCount() - i < NEAR_BOTTOM_COUNT) listener.onScrollBottom();
     }
 
     @Override
     public int getItemCount() {
-        return questions.size();
+        return items.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.title)
-        TextView title;
-
-        @BindView(R.id.avatar)
-        ImageView avatar;
-
-        @BindView(R.id.author_name)
-        TextView authorName;
-
-        @BindView(R.id.signature)
-        TextView signature;
-
-        @BindView(R.id.content)
-        TextView content;
-
-        @BindView(R.id.info)
-        TextView questionInfo;
+        IDisplay contentView;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            contentView = (IDisplay) itemView;
         }
+    }
 
-        @OnClick(R.id.icon_more)
-        void onClickQuestionMore() {
-            Toast.makeText(context, "icon_more...", Toast.LENGTH_LONG).show();
+    @Override
+    public int getItemViewType(int position) {
+        return items.get(position).getViewType().ordinal();
+    }
+
+    private int getLayoutId(int type) {
+        switch (IDisplayItem.ViewType.values()[type]) {
+            case NORMAL_QUESTION:
+                return R.layout.item_recommend_question;
+            case FOOTER_LOADING_MORE:
+                return R.layout.item_footer_load_more;
         }
+        throw new IllegalArgumentException("unknown view type: " + type);
+    }
+
+
+    public interface ScrollBottomListener {
+
+        void onScrollBottom();
     }
 }

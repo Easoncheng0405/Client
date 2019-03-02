@@ -14,26 +14,12 @@
  *    limitations under the License.
  */
 
-package com.jlu.chengjie.zhihu.modeal;
+package com.jlu.chengjie.zhihu.view;
 
-public class RecommendQuestion implements IDisplayItem {
+import com.jlu.chengjie.zhihu.modeal.IDisplayItem;
 
-    public String title;
+public interface IDisplay {
 
-    public String imageUrl;
+    void onBind(IDisplayItem item);
 
-    public String authorName;
-
-    public String signature;
-
-    public String content;
-
-    public String questionInfo;
-
-    public String url;
-
-    @Override
-    public ViewType getViewType() {
-        return ViewType.NORMAL_QUESTION;
-    }
 }

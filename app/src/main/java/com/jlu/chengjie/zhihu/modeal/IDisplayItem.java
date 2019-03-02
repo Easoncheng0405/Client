@@ -16,24 +16,14 @@
 
 package com.jlu.chengjie.zhihu.modeal;
 
-public class RecommendQuestion implements IDisplayItem {
+public interface IDisplayItem {
 
-    public String title;
-
-    public String imageUrl;
-
-    public String authorName;
-
-    public String signature;
-
-    public String content;
-
-    public String questionInfo;
-
-    public String url;
-
-    @Override
-    public ViewType getViewType() {
-        return ViewType.NORMAL_QUESTION;
+    enum ViewType {
+        NORMAL_QUESTION,
+        FOOTER_LOADING_MORE
     }
+
+
+    ViewType getViewType();
+
 }

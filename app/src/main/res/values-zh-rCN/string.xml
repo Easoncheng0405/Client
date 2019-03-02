@@ -27,4 +27,7 @@
     <string name="tab_top_recommend">推荐</string>
     <string name="tab_top_billboard">热榜</string>
     <string name="tab_top_article">文章</string>
+
+    <string name="list_footer_load_more">加载中…… 请稍后</string>
+    <string name="list_footer_no_more">没有更多内容了</string>
 </resources>

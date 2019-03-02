@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
   ~    Copyright [2019] [chengjie.jlu@qq.com]
   ~
   ~    Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,21 +16,13 @@
   ~    limitations under the License.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.jlu.chengjie.zhihu.view.FooterLoadMoreItem xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="50dp">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/refresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/search_box_background" />
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-</LinearLayout>
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+</com.jlu.chengjie.zhihu.view.FooterLoadMoreItem>
