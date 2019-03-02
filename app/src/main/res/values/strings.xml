@@ -27,4 +27,7 @@
     <string name="tab_top_recommend">Recommend</string>
     <string name="tab_top_billboard">Billboard</string>
     <string name="tab_top_article">Article</string>
+
+    <string name="list_footer_load_more">Loading…… please wait</string>
+    <string name="list_footer_no_more">There is no more content</string>
 </resources>

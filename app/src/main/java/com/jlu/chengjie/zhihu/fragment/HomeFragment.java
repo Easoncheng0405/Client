@@ -28,7 +28,9 @@ import android.view.ViewGroup;
 
 import com.jlu.chengjie.zhihu.R;
 import com.jlu.chengjie.zhihu.adapter.FragmentAdapter;
+import com.jlu.chengjie.zhihu.adapter.IScrollToHead;
 import com.jlu.chengjie.zhihu.fragment.home.Recommend;
+import com.jlu.chengjie.zhihu.util.ZLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +38,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements IScrollToHead {
+
+    private static final String TAG = "HomeFragment";
 
     @BindView(R.id.view_pager)
     ViewPager viewPager;
@@ -47,6 +51,8 @@ public class HomeFragment extends Fragment {
     private final int[] title = new int[]{R.string.tab_top_follow, R.string.tab_top_recommend
             , R.string.tab_top_billboard, R.string.tab_top_article};
 
+    private Fragment currentFragment;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,37 +62,50 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    private List<Fragment> getCustomFragments() {
-        return new ArrayList<Fragment>() {
-            {
-                add(new IdeaFragment());
-                add(new Recommend());
-                add(new MessageFragment());
-                add(new MyFragment());
-            }
-        };
-    }
+    private List<Fragment> fragments = new ArrayList<Fragment>() {
+        {
+            add(new IdeaFragment());
+            add(new Recommend());
+            add(new MessageFragment());
+            add(new MyFragment());
+        }
+    };
 
     private void initTabLayout() {
-        viewPager.setAdapter(new FragmentAdapter(getChildFragmentManager(), getCustomFragments()));
+        viewPager.setAdapter(new FragmentAdapter(getChildFragmentManager(), fragments));
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                tab.setText(title[tab.getPosition()]);
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+        tabLayout.addOnTabSelectedListener(tabSelectedListener);
         for (int i = 1; i <= tabLayout.getTabCount(); i++) {
             viewPager.setCurrentItem(i % tabLayout.getTabCount());
+        }
+    }
+
+    private TabLayout.OnTabSelectedListener tabSelectedListener = new TabLayout.OnTabSelectedListener() {
+        @Override
+        public void onTabSelected(TabLayout.Tab tab) {
+            int position = tab.getPosition();
+            ZLog.d(TAG, tab.getText() + " onTabSelected");
+            tab.setText(title[position]);
+            currentFragment = fragments.get(position);
+
+        }
+
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+            ZLog.d(TAG, tab.getText() + " onTabUnselected");
+        }
+
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+            ZLog.d(TAG, tab.getText() + " onTabReselected");
+            scrollToHead();
+        }
+    };
+
+    @Override
+    public void scrollToHead() {
+        if (currentFragment instanceof IScrollToHead) {
+            ((IScrollToHead) currentFragment).scrollToHead();
         }
     }
 }

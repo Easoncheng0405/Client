@@ -14,26 +14,10 @@
  *    limitations under the License.
  */
 
-package com.jlu.chengjie.zhihu.modeal;
+package com.jlu.chengjie.zhihu.adapter;
 
-public class RecommendQuestion implements IDisplayItem {
+public interface IScrollToHead {
 
-    public String title;
+    void scrollToHead();
 
-    public String imageUrl;
-
-    public String authorName;
-
-    public String signature;
-
-    public String content;
-
-    public String questionInfo;
-
-    public String url;
-
-    @Override
-    public ViewType getViewType() {
-        return ViewType.NORMAL_QUESTION;
-    }
 }
