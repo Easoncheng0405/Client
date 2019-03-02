@@ -30,4 +30,8 @@
 
     <string name="list_footer_load_more">Loading…… please wait</string>
     <string name="list_footer_no_more">There is no more content</string>
+
+    <string name="hint_input_content">Input Something……</string>
+    <string name="text_view_submit">Submit</string>
+    <string name="text_view_markdown_preview">Preview</string>
 </resources>

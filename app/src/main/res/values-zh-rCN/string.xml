@@ -30,4 +30,7 @@
 
     <string name="list_footer_load_more">加载中…… 请稍后</string>
     <string name="list_footer_no_more">没有更多内容了</string>
+    <string name="hint_input_content">输入内容……</string>
+    <string name="text_view_submit">发布</string>
+    <string name="text_view_markdown_preview">预览</string>
 </resources>

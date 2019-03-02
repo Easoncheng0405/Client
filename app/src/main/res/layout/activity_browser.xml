@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~    Copyright [2019] [chengjie.jlu@qq.com]
   ~
   ~    Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,41 +18,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".activity.BrowserActivity">
 
     <RelativeLayout
-        android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/color_action_bar"
         android:elevation="5dp">
 
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:src="@drawable/left_blue"
+            tools:ignore="ContentDescription" />
+
         <TextView
-            android:id="@+id/submit"
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="15dp"
-            android:text="@string/text_view_markdown_preview"
+            android:layout_centerInParent="true"
             android:textColor="@color/color_normal_button"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
+
     </RelativeLayout>
 
-    <ScrollView
+    <WebView
+        android:id="@+id/web_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:layout_height="match_parent" />
 
-        <EditText
-            android:id="@+id/edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:hint="@string/hint_input_content"
-            android:inputType="textMultiLine"
-            tools:ignore="Autofill" />
-    </ScrollView>
 </LinearLayout>
