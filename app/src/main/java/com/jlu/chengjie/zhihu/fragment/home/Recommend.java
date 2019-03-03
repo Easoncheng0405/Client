@@ -134,7 +134,7 @@ public class Recommend extends Fragment implements IScrollToHead, RecommendListA
     }
 
     @Override
-    public void onScrollBottom() {
+    public synchronized void onScrollBottom() {
         if (isLoadingMore) return;
         if (list.size() > 50) {
             handler.post(noMore);
@@ -147,13 +147,13 @@ public class Recommend extends Fragment implements IScrollToHead, RecommendListA
     private void loadMore(List<IDisplayItem> more) {
         handler.post(() -> {
             list.remove(list.size() - 1);
-            adapter.notifyItemRemoved(list.size() - 1);
+            adapter.notifyBottomRemoved();
             for (IDisplayItem item : more) {
                 list.add(item);
-                adapter.notifyItemInserted(list.size() - 1);
+                adapter.notifyBottomInsert();
             }
             addFooter();
-            adapter.notifyItemInserted(list.size() - 1);
+            adapter.notifyBottomInsert();
             isLoadingMore = false;
         });
     }

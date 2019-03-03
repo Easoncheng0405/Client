@@ -88,6 +88,14 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
         throw new IllegalArgumentException("unknown view type: " + type);
     }
 
+    public void notifyBottomRemoved() {
+        notifyItemRemoved(getItemCount() - 1);
+    }
+
+    public void notifyBottomInsert() {
+        notifyItemInserted(getItemCount() - 1);
+    }
+
 
     public interface ScrollBottomListener {
 

@@ -27,10 +27,13 @@ import com.jlu.chengjie.zhihu.R;
 import com.jlu.chengjie.zhihu.fragment.EditFragment;
 import com.jlu.chengjie.zhihu.util.TaskRunner;
 import com.jlu.chengjie.zhihu.util.ZLog;
+import com.vladsch.flexmark.ext.tables.TablesExtension;
+import com.vladsch.flexmark.html.HtmlRenderer;
+import com.vladsch.flexmark.parser.Parser;
+import com.vladsch.flexmark.util.ast.Node;
+import com.vladsch.flexmark.util.options.MutableDataSet;
 
-import org.markdown4j.Markdown4jProcessor;
-
-import java.io.IOException;
+import java.util.Collections;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,7 +48,7 @@ public class BrowserActivity extends AppCompatActivity {
             "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " +
             "<style>img{max-width:100% !important; width:auto; height:auto;}</style>" +
             "</head>" +
-            "<div class=\"container\">";
+            "<div class=\"container\" style=\"margin-top: 10px;\">";
 
     @BindView(R.id.web_view)
     WebView webView;
@@ -57,10 +60,18 @@ public class BrowserActivity extends AppCompatActivity {
 
     private Runnable previewMarkDown = () -> {
         try {
-            String content = new Markdown4jProcessor().process(EditFragment.contentHolder) + "</div>";
-            handler.post(() -> webView.loadDataWithBaseURL("file:///android_asset/", HTML_HEADER + content, "text/html", "UTF-8", null));
-        } catch (IOException e) {
-            ZLog.e(TAG, "preview MarkDown exception", e);
+            MutableDataSet options = new MutableDataSet();
+            options.set(Parser.EXTENSIONS, Collections.singletonList(TablesExtension.create()));
+            Parser parser = Parser.builder(options).build();
+            HtmlRenderer renderer = HtmlRenderer.builder(options).build();
+
+            Node document = parser.parse(EditFragment.contentHolder);
+            String content = renderer.render(document) + "</div>";
+            content = content.replaceAll("<table>", "<table class=\"table table-bordered\">");
+            String html = HTML_HEADER + content;
+            handler.post(() -> webView.loadDataWithBaseURL("file:///android_asset/", html, "text/html", "UTF-8", null));
+        } catch (Exception e) {
+            ZLog.e(TAG, "renderer MarkDown preview exception", e);
         }
     };
 
