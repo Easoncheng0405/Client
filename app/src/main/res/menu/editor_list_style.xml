@@ -16,9 +16,12 @@
   ~    limitations under the License.
   -->
 
-<translate xmlns:android="http://schemas.android.com/apk/res/android"
-    android:duration="300"
-    android:fromXDelta="0"
-    android:fromYDelta="0"
-    android:toXDelta="0"
-    android:toYDelta="100%" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/order"
+        android:title="@string/editor_list_style_order" />
+
+    <item
+        android:id="@+id/disorder"
+        android:title="@string/editor_list_style_disorder" />
+</menu>

@@ -34,4 +34,31 @@
     <string name="hint_input_content">Input Something……</string>
     <string name="text_view_submit">Submit</string>
     <string name="text_view_markdown_preview">Preview</string>
+
+    <string name="editor_title_level_one">First-Level Title</string>
+    <string name="editor_title_level_two">Second-Level Title</string>
+    <string name="editor_title_level_three">Third-Level Title</string>
+    <string name="editor_title_level_four">Fourth-Level Title</string>
+    <string name="editor_title_level_five">Fifth-Level Title</string>
+    <string name="editor_title_level_six">Sixth-Level Title</string>
+
+    <string name="editor_code_single_line">Single Line Code</string>
+    <string name="editor_code_block">Code Block</string>
+
+    <string name="editor_text_style_bold">Bold</string>
+    <string name="editor_text_style_italic">Italic</string>
+    <string name="editor_text_style_quote">Quote</string>
+
+    <string name="editor_list_style_order">Order List</string>
+    <string name="editor_list_style_disorder">Disorder List</string>
+
+    <string name="dialog_insert_image_title">Insert an image</string>
+    <string name="dialog_insert_link_title">Insert an link</string>
+
+    <string name="dialog_insert_link_address_hint">Input link address</string>
+    <string name="dialog_insert_link_description_hint">Insert link description.(optional)</string>
+
+    <string name="dialog_insert_image_address_hint">Input image address</string>
+    <string name="dialog_insert_image_description_hint">Insert image description.(optional)</string>
+
 </resources>

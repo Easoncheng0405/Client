@@ -33,4 +33,30 @@
     <string name="hint_input_content">输入内容……</string>
     <string name="text_view_submit">发布</string>
     <string name="text_view_markdown_preview">预览</string>
+
+    <string name="editor_title_level_one">一级标题</string>
+    <string name="editor_title_level_two">二级标题</string>
+    <string name="editor_title_level_three">三级标题</string>
+    <string name="editor_title_level_four">四级标题</string>
+    <string name="editor_title_level_five">五级标题</string>
+    <string name="editor_title_level_six">六级标题</string>
+
+    <string name="editor_code_single_line">单行代码</string>
+    <string name="editor_code_block">代码块</string>
+
+    <string name="editor_text_style_bold">加粗</string>
+    <string name="editor_text_style_italic">斜体</string>
+    <string name="editor_text_style_quote">引用</string>
+
+    <string name="editor_list_style_order">有序列表</string>
+    <string name="editor_list_style_disorder">无序列表</string>
+
+    <string name="dialog_insert_image_title">插入一张图片</string>
+    <string name="dialog_insert_link_title">插入链接</string>
+
+    <string name="dialog_insert_link_address_hint">输入链接地址</string>
+    <string name="dialog_insert_link_description_hint">输入链接描述(选填)</string>
+
+    <string name="dialog_insert_image_address_hint">输入图片地址</string>
+    <string name="dialog_insert_image_description_hint">输入链接描述(选填)</string>
 </resources>
