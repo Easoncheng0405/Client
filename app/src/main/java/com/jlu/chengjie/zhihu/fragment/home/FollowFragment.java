@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.jlu.chengjie.zhihu.R;
 import com.jlu.chengjie.zhihu.adapter.BaseRecyclerViewAdapter;
 import com.jlu.chengjie.zhihu.modeal.FollowDynamics;
+import com.jlu.chengjie.zhihu.modeal.FollowHeader;
 import com.jlu.chengjie.zhihu.modeal.IDisplayItem;
 
 import java.util.List;
@@ -29,6 +30,12 @@ public class FollowFragment extends BaseRecycleFragment {
 
     @Override
     protected void onListInit(List<IDisplayItem> list) {
+        FollowHeader header = new FollowHeader();
+        header.avatarUrls[0] = "http://img2.imgtn.bdimg.com/it/u=2060761043,284284863&fm=26&gp=0.jpg";
+        header.avatarUrls[1] = "http://img2.imgtn.bdimg.com/it/u=3135339935,1064367009&fm=26&gp=0.jpg";
+        header.avatarUrls[2] = "http://img1.imgtn.bdimg.com/it/u=2161523157,1298941018&fm=26&gp=0.jpg";
+        header.avatarUrls[3] = "http://img2.imgtn.bdimg.com/it/u=594281965,894601681&fm=26&gp=0.jpg";
+        list.add(header);
         for (int i = 0; i < 10; i++) {
             FollowDynamics dynamics = new FollowDynamics();
             dynamics.title = "做一个网页是先把大致布局搭好还是慢慢从头到尾搭?";
@@ -44,7 +51,7 @@ public class FollowFragment extends BaseRecycleFragment {
 
     @Override
     protected void onLoadMore(List<IDisplayItem> list, BaseRecyclerViewAdapter adapter) {
-        refreshLayout.finishLoadMore(2000, false, true);
+        refreshLayout.finishLoadMore(2000, true, true);
         for (int i = 0; i < 10; i++) {
             FollowDynamics dynamics = new FollowDynamics();
             dynamics.title = "做一个网页是先把大致布局搭好还是慢慢从头到尾搭?";

@@ -16,24 +16,12 @@
 
 package com.jlu.chengjie.zhihu.modeal;
 
-public interface IDisplayItem {
+public class FollowHeader implements IDisplayItem {
 
-    enum ViewType {
-        NORMAL_QUESTION("normal_question"),
-        FOLLOW_DYNAMICS("follow_dynamics"),
-        FOLLOW_HEADER("follow_header");
+    public String[] avatarUrls = new String[4];
 
-        private String name;
-
-        ViewType(String name) {
-            this.name = name;
-        }
-
-        public String value() {
-            return this.name;
-        }
+    @Override
+    public ViewType getViewType() {
+        return ViewType.FOLLOW_HEADER;
     }
-
-    ViewType getViewType();
-
 }

@@ -78,6 +78,8 @@ public class BaseRecyclerViewAdapter extends RecyclerView.Adapter<BaseRecyclerVi
                 return R.layout.item_recommend_question;
             case FOLLOW_DYNAMICS:
                 return R.layout.item_follow_people_dynamics;
+            case FOLLOW_HEADER:
+                return R.layout.item_header_discover_more;
         }
         throw new IllegalArgumentException("unknown view type: " + type);
     }
