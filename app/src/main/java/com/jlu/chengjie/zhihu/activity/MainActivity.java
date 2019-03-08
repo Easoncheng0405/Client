@@ -28,7 +28,7 @@ import android.widget.TextView;
 
 import com.jlu.chengjie.zhihu.R;
 import com.jlu.chengjie.zhihu.adapter.FragmentAdapter;
-import com.jlu.chengjie.zhihu.adapter.IScrollToHead;
+import com.jlu.chengjie.zhihu.fragment.IScrollToHead;
 import com.jlu.chengjie.zhihu.fragment.EditFragment;
 import com.jlu.chengjie.zhihu.fragment.HomeFragment;
 import com.jlu.chengjie.zhihu.fragment.IdeaFragment;

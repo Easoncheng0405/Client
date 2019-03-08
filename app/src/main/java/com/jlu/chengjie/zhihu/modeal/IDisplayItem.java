@@ -19,7 +19,8 @@ package com.jlu.chengjie.zhihu.modeal;
 public interface IDisplayItem {
 
     enum ViewType {
-        NORMAL_QUESTION("normal_question");
+        NORMAL_QUESTION("normal_question"),
+        FOLLOW_DYNAMICS("follow_dynamics");
 
         private String name;
 

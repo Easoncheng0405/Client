@@ -14,14 +14,10 @@
  *    limitations under the License.
  */
 
-package com.jlu.chengjie.zhihu.modeal;
+package com.jlu.chengjie.zhihu.fragment;
 
-public class RecommendQuestion extends BaseListItem {
+public interface IScrollToHead {
 
-    public String signature;
+    void scrollToHead();
 
-    @Override
-    public ViewType getViewType() {
-        return ViewType.NORMAL_QUESTION;
-    }
 }

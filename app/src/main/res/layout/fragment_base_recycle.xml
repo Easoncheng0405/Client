@@ -38,7 +38,7 @@
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/search_box_background" />
+            android:background="@color/color_search_box_background" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </LinearLayout>

@@ -14,10 +14,15 @@
  *    limitations under the License.
  */
 
-package com.jlu.chengjie.zhihu.adapter;
+package com.jlu.chengjie.zhihu.modeal;
 
-public interface IScrollToHead {
 
-    void scrollToHead();
+public class FollowDynamics extends BaseListItem {
 
+    public String metaInfo;
+
+    @Override
+    public ViewType getViewType() {
+        return ViewType.FOLLOW_DYNAMICS;
+    }
 }

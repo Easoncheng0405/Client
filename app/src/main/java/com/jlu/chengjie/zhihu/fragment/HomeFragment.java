@@ -28,7 +28,7 @@ import android.view.ViewGroup;
 
 import com.jlu.chengjie.zhihu.R;
 import com.jlu.chengjie.zhihu.adapter.FragmentAdapter;
-import com.jlu.chengjie.zhihu.adapter.IScrollToHead;
+import com.jlu.chengjie.zhihu.fragment.home.FollowFragment;
 import com.jlu.chengjie.zhihu.fragment.home.Recommend;
 import com.jlu.chengjie.zhihu.util.ZLog;
 
@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment implements IScrollToHead {
 
     private List<Fragment> fragments = new ArrayList<Fragment>() {
         {
-            add(new IdeaFragment());
+            add(new FollowFragment());
             add(new Recommend());
             add(new MessageFragment());
             add(new MyFragment());

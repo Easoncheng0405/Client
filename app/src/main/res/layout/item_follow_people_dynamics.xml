@@ -16,7 +16,7 @@
   ~    limitations under the License.
   -->
 
-<com.jlu.chengjie.zhihu.view.NormalRecommendItem xmlns:android="http://schemas.android.com/apk/res/android"
+<com.jlu.chengjie.zhihu.view.FollowPeopleDynamicsItem xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -28,65 +28,69 @@
     android:paddingRight="15dp"
     android:paddingBottom="10dp">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/color_black"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp">
+        android:layout_height="wrap_content">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/avatar"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            tools:ignore="ContentDescription" />
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/avatar" />
 
         <TextView
             android:id="@+id/author_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="5dp"
             android:textColor="@color/color_black"
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/signature"
+            android:id="@+id/meta_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="5dp"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/color_black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="5dp"
         android:textColor="@color/color_list_item_content" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             tools:ignore="RelativeOverlap" />
 
         <ImageView
-            android:id="@+id/icon_more"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:id="@+id/more"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/more"
             tools:ignore="ContentDescription" />
     </RelativeLayout>
-</com.jlu.chengjie.zhihu.view.NormalRecommendItem>
+</com.jlu.chengjie.zhihu.view.FollowPeopleDynamicsItem>

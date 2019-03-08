@@ -25,16 +25,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jlu.chengjie.zhihu.R;
+import com.jlu.chengjie.zhihu.modeal.FollowDynamics;
 import com.jlu.chengjie.zhihu.modeal.IDisplayItem;
-import com.jlu.chengjie.zhihu.modeal.RecommendQuestion;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class NormalRecommendItem extends LinearLayout implements IDisplay {
-
-    @BindView(R.id.title)
-    TextView title;
+public class FollowPeopleDynamicsItem extends LinearLayout implements IDisplay {
 
     @BindView(R.id.avatar)
     ImageView avatar;
@@ -42,32 +40,40 @@ public class NormalRecommendItem extends LinearLayout implements IDisplay {
     @BindView(R.id.author_name)
     TextView authorName;
 
-    @BindView(R.id.signature)
-    TextView signature;
+    @BindView(R.id.meta_info)
+    TextView mateInfo;
+
+    @BindView(R.id.title)
+    TextView title;
 
     @BindView(R.id.content)
     TextView content;
 
     @BindView(R.id.info)
-    TextView questionInfo;
+    TextView info;
 
-    public NormalRecommendItem(Context context, @Nullable AttributeSet attrs) {
+    public FollowPeopleDynamicsItem(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
     @Override
     public void onBind(IDisplayItem item) {
-        RecommendQuestion question = (RecommendQuestion) item;
+        FollowDynamics dynamics = (FollowDynamics) item;
         ButterKnife.bind(this);
-        title.setText(question.title);
-        authorName.setText(question.authorName);
-        signature.setText(question.signature);
-        content.setText(question.content);
-        questionInfo.setText(question.itemInfo);
+        title.setText(dynamics.title);
+        authorName.setText(dynamics.authorName);
+        content.setText(dynamics.content);
+        mateInfo.setText(dynamics.metaInfo);
+        info.setText(dynamics.itemInfo);
         Glide.with(getContext())
-                .load(question.avatarUrl)
+                .load(dynamics.avatarUrl)
                 .placeholder(R.drawable.avatar)
                 .error(R.drawable.avatar)
                 .into(avatar);
+    }
+
+    @OnClick(R.id.more)
+    void clickMore() {
+
     }
 }

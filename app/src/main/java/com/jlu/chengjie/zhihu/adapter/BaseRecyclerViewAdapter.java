@@ -29,13 +29,13 @@ import com.jlu.chengjie.zhihu.view.IDisplay;
 
 import java.util.List;
 
-public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdapter.ViewHolder> {
+public class BaseRecyclerViewAdapter extends RecyclerView.Adapter<BaseRecyclerViewAdapter.ViewHolder> {
 
     private List<IDisplayItem> items;
 
     private LayoutInflater inflater;
 
-    public RecommendListAdapter(Context context, List<IDisplayItem> items) {
+    public BaseRecyclerViewAdapter(Context context, List<IDisplayItem> items) {
         this.items = items;
         this.inflater = LayoutInflater.from(context);
     }
@@ -76,11 +76,9 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
         switch (IDisplayItem.ViewType.values()[type]) {
             case NORMAL_QUESTION:
                 return R.layout.item_recommend_question;
+            case FOLLOW_DYNAMICS:
+                return R.layout.item_follow_people_dynamics;
         }
         throw new IllegalArgumentException("unknown view type: " + type);
-    }
-
-    public void notifyBottomInsert() {
-        notifyItemInserted(getItemCount() - 1);
     }
 }

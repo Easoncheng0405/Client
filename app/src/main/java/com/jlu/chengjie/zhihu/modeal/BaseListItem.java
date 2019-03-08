@@ -16,12 +16,16 @@
 
 package com.jlu.chengjie.zhihu.modeal;
 
-public class RecommendQuestion extends BaseListItem {
+abstract class BaseListItem implements IDisplayItem {
+    public String title;
 
-    public String signature;
+    public String avatarUrl;
 
-    @Override
-    public ViewType getViewType() {
-        return ViewType.NORMAL_QUESTION;
-    }
+    public String authorName;
+
+    public String content;
+
+    public String itemInfo;
+
+    public String url;
 }

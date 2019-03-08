@@ -19,6 +19,7 @@
     <color name="color_action_bar">#FFFFFF</color>
     <color name="color_status_bar">@color/color_action_bar</color>
     <color name="color_normal_button">#1296db</color>
-    <color name="search_box_background">#F0F0F0</color>
+    <color name="color_search_box_background">#F0F0F0</color>
     <color name="color_black">#000000</color>
+    <color name="color_list_item_content">#4D4D4D</color>
 </resources>

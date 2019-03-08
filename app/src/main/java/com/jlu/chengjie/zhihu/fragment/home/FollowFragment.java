@@ -20,40 +20,41 @@ import android.widget.Toast;
 
 import com.jlu.chengjie.zhihu.R;
 import com.jlu.chengjie.zhihu.adapter.BaseRecyclerViewAdapter;
+import com.jlu.chengjie.zhihu.modeal.FollowDynamics;
 import com.jlu.chengjie.zhihu.modeal.IDisplayItem;
-import com.jlu.chengjie.zhihu.modeal.RecommendQuestion;
 
 import java.util.List;
 
-public class Recommend extends BaseRecycleFragment {
+public class FollowFragment extends BaseRecycleFragment {
 
     @Override
     protected void onListInit(List<IDisplayItem> list) {
         for (int i = 0; i < 10; i++) {
-            RecommendQuestion question = new RecommendQuestion();
-            question.title = "现在国内大公司主要用C?";
-            question.authorName = "Ben Lampson";
-            question.signature = "已认证的官方账号";
-            question.content = "两种语言其实没有太大差别.都有1L..就算有差距也就那样...我自己是" +
-                    ".NET.不过大部分猎头找我都是JAVA.因为J...";
-            question.itemInfo = "10赞同 · 5 评论 · 1 收藏";
-            list.add(question);
+            FollowDynamics dynamics = new FollowDynamics();
+            dynamics.title = "做一个网页是先把大致布局搭好还是慢慢从头到尾搭?";
+            dynamics.content = "陈龙: 先把大致布局搭好。以前公司招聘了一个做平面设计" +
+                    "的女生做网页，她有美术基础，会画画。但是要我从HTML开始教她。开始做" +
+                    "网页的时候，我说: 咋们先把页...";
+            dynamics.authorName = "知乎刘看山";
+            dynamics.metaInfo = "赞同了回答 · 4 小时前";
+            dynamics.itemInfo = "94 赞同 · 245 评论 · 9 收藏";
+            list.add(dynamics);
         }
     }
 
     @Override
     protected void onLoadMore(List<IDisplayItem> list, BaseRecyclerViewAdapter adapter) {
-        Toast.makeText(getContext(), "loading more....", Toast.LENGTH_LONG).show();
         refreshLayout.finishLoadMore(2000, false, true);
         for (int i = 0; i < 10; i++) {
-            RecommendQuestion question = new RecommendQuestion();
-            question.title = "现在国内大公司主要用C#还是JAVA?";
-            question.authorName = "Ben Lampson";
-            question.signature = "已认证的官方账号";
-            question.content = "两种语言其实没有太大差别.都有1L..就算有差距也就那样...我自己是" +
-                    ".NET.不过大部分猎头找我都是JAVA.因为J...";
-            question.itemInfo = "10赞同 · 5 评论 · 1 收藏";
-            list.add(question);
+            FollowDynamics dynamics = new FollowDynamics();
+            dynamics.title = "做一个网页是先把大致布局搭好还是慢慢从头到尾搭?";
+            dynamics.content = "陈龙: 先把大致布局搭好。以前公司招聘了一个做平面设计" +
+                    "的女生做网页，她有美术基础，会画画。但是要我从HTML开始教她。开始做" +
+                    "网页的时候，我说: 咋们先把页...";
+            dynamics.authorName = "小米吴彦祖";
+            dynamics.metaInfo = "赞同了回答 · 4 小时前";
+            dynamics.itemInfo = "94 赞同 · 245 评论 · 9 收藏";
+            list.add(dynamics);
         }
     }
 
