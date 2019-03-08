@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
   ~    Copyright [2019] [chengjie.jlu@qq.com]
   ~
   ~    Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,16 +21,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <com.scwang.smartrefresh.header.PhoenixHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/search_box_background" />
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </LinearLayout>

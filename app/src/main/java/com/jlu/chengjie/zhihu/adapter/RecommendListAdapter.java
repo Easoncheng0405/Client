@@ -35,14 +35,9 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
 
     private LayoutInflater inflater;
 
-    private ScrollBottomListener listener;
-
-    private static final int NEAR_BOTTOM_COUNT = 3;
-
-    public RecommendListAdapter(Context context, List<IDisplayItem> items, ScrollBottomListener listener) {
+    public RecommendListAdapter(Context context, List<IDisplayItem> items) {
         this.items = items;
         this.inflater = LayoutInflater.from(context);
-        this.listener = listener;
     }
 
     @NonNull
@@ -55,7 +50,6 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.contentView.onBind(items.get(i));
-        if (getItemCount() - i < NEAR_BOTTOM_COUNT) listener.onScrollBottom();
     }
 
     @Override
@@ -82,23 +76,11 @@ public class RecommendListAdapter extends RecyclerView.Adapter<RecommendListAdap
         switch (IDisplayItem.ViewType.values()[type]) {
             case NORMAL_QUESTION:
                 return R.layout.item_recommend_question;
-            case FOOTER_LOADING_MORE:
-                return R.layout.item_footer_load_more;
         }
         throw new IllegalArgumentException("unknown view type: " + type);
     }
 
-    public void notifyBottomRemoved() {
-        notifyItemRemoved(getItemCount() - 1);
-    }
-
     public void notifyBottomInsert() {
         notifyItemInserted(getItemCount() - 1);
-    }
-
-
-    public interface ScrollBottomListener {
-
-        void onScrollBottom();
     }
 }

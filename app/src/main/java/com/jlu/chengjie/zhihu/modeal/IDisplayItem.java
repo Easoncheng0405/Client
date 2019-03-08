@@ -19,10 +19,18 @@ package com.jlu.chengjie.zhihu.modeal;
 public interface IDisplayItem {
 
     enum ViewType {
-        NORMAL_QUESTION,
-        FOOTER_LOADING_MORE
-    }
+        NORMAL_QUESTION("normal_question");
 
+        private String name;
+
+        ViewType(String name) {
+            this.name = name;
+        }
+
+        public String value() {
+            return this.name;
+        }
+    }
 
     ViewType getViewType();
 
