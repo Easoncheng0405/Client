@@ -14,15 +14,26 @@
  *    limitations under the License.
  */
 
-package com.jlu.chengjie.zhihu.modeal;
+package com.jlu.chengjie.zhihu.model;
 
+public interface IDisplayItem {
 
-public class FollowDynamics extends BaseListItem {
+    enum ViewType {
+        NORMAL_QUESTION("normal_question"),
+        FOLLOW_DYNAMICS("follow_dynamics"),
+        FOLLOW_HEADER("follow_header");
 
-    public String metaInfo;
+        private String name;
 
-    @Override
-    public ViewType getViewType() {
-        return ViewType.FOLLOW_DYNAMICS;
+        ViewType(String name) {
+            this.name = name;
+        }
+
+        public String value() {
+            return this.name;
+        }
     }
+
+    ViewType getViewType();
+
 }

@@ -24,8 +24,10 @@ import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.jlu.chengjie.zhihu.R;
-import com.jlu.chengjie.zhihu.modeal.FollowHeader;
-import com.jlu.chengjie.zhihu.modeal.IDisplayItem;
+import com.jlu.chengjie.zhihu.event.Event;
+import com.jlu.chengjie.zhihu.event.EventBus;
+import com.jlu.chengjie.zhihu.model.FollowHeader;
+import com.jlu.chengjie.zhihu.model.IDisplayItem;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -37,9 +39,7 @@ public class HeaderDiscoverMore extends RelativeLayout implements IDisplay {
 
     @Override
     public void onBind(IDisplayItem item) {
-
         FollowHeader header = (FollowHeader) item;
-
         for (int i = 0; i < getChildCount(); i++) {
             View view = getChildAt(i);
             if (view instanceof CircleImageView) {
@@ -52,5 +52,12 @@ public class HeaderDiscoverMore extends RelativeLayout implements IDisplay {
                         .into(imageView);
             }
         }
+        setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        EventBus.getInstance().handleMsg(Event.Click.FOLLOW_DISCOVER_MORE
+                , null, "HeaderDiscoverMore Click.");
     }
 }

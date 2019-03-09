@@ -28,8 +28,10 @@ import android.view.ViewGroup;
 
 import com.jlu.chengjie.zhihu.R;
 import com.jlu.chengjie.zhihu.adapter.BaseRecyclerViewAdapter;
+import com.jlu.chengjie.zhihu.event.IHandler;
 import com.jlu.chengjie.zhihu.fragment.IScrollToHead;
-import com.jlu.chengjie.zhihu.modeal.IDisplayItem;
+import com.jlu.chengjie.zhihu.model.IDisplayItem;
+import com.jlu.chengjie.zhihu.util.TaskRunner;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -41,7 +43,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public abstract class BaseRecycleFragment extends Fragment implements IScrollToHead {
+public abstract class BaseRecycleFragment extends Fragment implements IScrollToHead, IHandler {
 
     @BindView(R.id.list)
     RecyclerView recyclerView;
@@ -52,27 +54,32 @@ public abstract class BaseRecycleFragment extends Fragment implements IScrollToH
     private static final int REFRESH_STOP = 0;
     private static final int SCROLL_VERTICALLY_UP = -1;
 
+    private View rootView;
+
     private List<IDisplayItem> list = new ArrayList<>();
 
     private BaseRecyclerViewAdapter adapter;
 
-    private OnRefreshListener refreshListener = refreshLayout -> {
-        onRefresh(list, adapter);
-        adapter.notifyDataSetChanged();
-    };
+    private OnRefreshListener refreshListener = refreshLayout ->
+            TaskRunner.execute(() -> {
+                onRefresh(list);
+                adapter.notifyDataChanged(false);
+                refreshLayout.finishRefresh();
+            });
 
-    private OnLoadMoreListener loadMoreListener = refreshLayout -> {
-        int size = list.size();
-        onLoadMore(list, adapter);
-        adapter.notifyItemRangeInserted(size, list.size() - size);
-    };
+    private OnLoadMoreListener loadMoreListener = refreshLayout ->
+            TaskRunner.execute(() -> {
+                onLoadMore(list);
+                adapter.notifyDataChanged(true);
+                refreshLayout.finishLoadMore();
+            });
 
 
     protected abstract void onListInit(List<IDisplayItem> list);
 
-    protected abstract void onLoadMore(List<IDisplayItem> list, BaseRecyclerViewAdapter adapter);
+    protected abstract void onLoadMore(List<IDisplayItem> list);
 
-    protected abstract void onRefresh(List<IDisplayItem> list, BaseRecyclerViewAdapter adapter);
+    protected abstract void onRefresh(List<IDisplayItem> list);
 
     protected abstract int getLayoutId();
 
@@ -80,16 +87,26 @@ public abstract class BaseRecycleFragment extends Fragment implements IScrollToH
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable
             ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(getLayoutId(), container, false);
-        ButterKnife.bind(this, view);
+        if (rootView != null) {
+            ViewGroup parent = (ViewGroup) rootView.getParent();
+            if (parent != null) {
+                parent.removeView(rootView);
+            }
+        } else {
+            rootView = inflater.inflate(getLayoutId(), null);
+            ButterKnife.bind(this, rootView);
+            adapter = new BaseRecyclerViewAdapter(getContext(), list);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerView.setAdapter(adapter);
+            refreshLayout.setOnRefreshListener(refreshListener);
+            refreshLayout.setOnLoadMoreListener(loadMoreListener);
+            TaskRunner.execute(() -> {
+                onListInit(list);
+                adapter.notifyDataChanged(false);
+            });
+        }
 
-        onListInit(list);
-        adapter = new BaseRecyclerViewAdapter(getContext(), list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
-        refreshLayout.setOnRefreshListener(refreshListener);
-        refreshLayout.setOnLoadMoreListener(loadMoreListener);
-        return view;
+        return rootView;
     }
 
     @Override

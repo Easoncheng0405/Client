@@ -16,22 +16,6 @@
 
 package com.jlu.chengjie.zhihu.util;
 
-/*
- *    Copyright [2019] [chengjie.jlu@qq.com]
- *
- *    Licensed under the Apache License, Version 2.0 (the "License");
- *    you may not use this file except in compliance with the License.
- *    You may obtain a copy of the License at
- *
- *        http://www.apache.org/licenses/LICENSE-2.0
- *
- *    Unless required by applicable law or agreed to in writing, software
- *    distributed under the License is distributed on an "AS IS" BASIS,
- *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *    See the License for the specific language governing permissions and
- *    limitations under the License.
- */
-
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -53,16 +37,16 @@ public class TaskRunner {
          * are created and no idle threads will live forever.
          */
         executor = new ThreadPoolExecutor(
-                CORE_COUNT, // core pool threads count
-                CORE_COUNT, // maximum pool threads count
-                1, // idle thread can live at most 1 second if not reused
+                CORE_COUNT,                     // core pool threads count
+                CORE_COUNT,                     // maximum pool threads count
+                1,                              // idle thread can live at most 1 second if not reused
                 TimeUnit.SECONDS,
                 new LinkedBlockingQueue<>());
-        executor.allowCoreThreadTimeOut(true); // allow core threads to be recycled if they're idle
+        executor.allowCoreThreadTimeOut(true);  // allow core threads to be recycled if they're idle
     }
 
     private TaskRunner() {
-        throw new AssertionError("No com.jlu.chengjie.zhifou.util.TaskRunner instances for you!");
+        throw new AssertionError("No com.jlu.chengjie.zhihu.util.TaskRunner instances for you!");
     }
 
     public static void execute(Runnable runnable) {

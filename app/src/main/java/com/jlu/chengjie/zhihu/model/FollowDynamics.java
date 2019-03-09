@@ -14,14 +14,15 @@
  *    limitations under the License.
  */
 
-package com.jlu.chengjie.zhihu.view;
+package com.jlu.chengjie.zhihu.model;
 
-import android.view.View;
 
-import com.jlu.chengjie.zhihu.model.IDisplayItem;
+public class FollowDynamics extends BaseListItem {
 
-public interface IDisplay extends View.OnClickListener {
+    public String metaInfo;
 
-    void onBind(IDisplayItem item);
-
+    @Override
+    public ViewType getViewType() {
+        return ViewType.FOLLOW_DYNAMICS;
+    }
 }

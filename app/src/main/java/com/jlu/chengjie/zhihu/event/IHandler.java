@@ -14,26 +14,10 @@
  *    limitations under the License.
  */
 
-package com.jlu.chengjie.zhihu.modeal;
+package com.jlu.chengjie.zhihu.event;
 
-public interface IDisplayItem {
+public interface IHandler {
 
-    enum ViewType {
-        NORMAL_QUESTION("normal_question"),
-        FOLLOW_DYNAMICS("follow_dynamics"),
-        FOLLOW_HEADER("follow_header");
-
-        private String name;
-
-        ViewType(String name) {
-            this.name = name;
-        }
-
-        public String value() {
-            return this.name;
-        }
-    }
-
-    ViewType getViewType();
+    boolean handleMsg(int what, String msg, Object o);
 
 }
