@@ -14,14 +14,14 @@
  *    limitations under the License.
  */
 
-package com.jlu.chengjie.zhihu.modeal;
+package com.jlu.chengjie.zhihu.model;
 
-public class RecommendQuestion extends BaseListItem {
+public class FollowHeader implements IDisplayItem {
 
-    public String signature;
+    public String[] avatarUrls = new String[4];
 
     @Override
     public ViewType getViewType() {
-        return ViewType.NORMAL_QUESTION;
+        return ViewType.FOLLOW_HEADER;
     }
 }

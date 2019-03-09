@@ -16,7 +16,7 @@
   ~    limitations under the License.
   -->
 
-<com.jlu.chengjie.zhihu.view.NormalRecommendItem xmlns:android="http://schemas.android.com/apk/res/android"
+<com.jlu.chengjie.zhihu.view.RecommendQuestionItem xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -89,4 +89,4 @@
             android:src="@drawable/more"
             tools:ignore="ContentDescription" />
     </RelativeLayout>
-</com.jlu.chengjie.zhihu.view.NormalRecommendItem>
+</com.jlu.chengjie.zhihu.view.RecommendQuestionItem>

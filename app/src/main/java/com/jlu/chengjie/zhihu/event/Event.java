@@ -14,14 +14,18 @@
  *    limitations under the License.
  */
 
-package com.jlu.chengjie.zhihu.modeal;
+package com.jlu.chengjie.zhihu.event;
 
-public class FollowHeader implements IDisplayItem {
+public class Event {
 
-    public String[] avatarUrls = new String[4];
+    public interface Click {
 
-    @Override
-    public ViewType getViewType() {
-        return ViewType.FOLLOW_HEADER;
+        /*FollowFragment*/
+        int FOLLOW_PEOPLE_DYNAMICS = 0x11000001;
+        int FOLLOW_DISCOVER_MORE = 0x11000002;
+
+        /*RecommendFragment*/
+        int RECOMMEND_QUESTION = 0x12000001;
     }
+
 }

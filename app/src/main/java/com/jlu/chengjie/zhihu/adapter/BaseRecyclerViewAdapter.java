@@ -24,7 +24,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jlu.chengjie.zhihu.R;
-import com.jlu.chengjie.zhihu.modeal.IDisplayItem;
+import com.jlu.chengjie.zhihu.event.EventBus;
+import com.jlu.chengjie.zhihu.model.IDisplayItem;
 import com.jlu.chengjie.zhihu.view.IDisplay;
 
 import java.util.List;
@@ -34,6 +35,8 @@ public class BaseRecyclerViewAdapter extends RecyclerView.Adapter<BaseRecyclerVi
     private List<IDisplayItem> items;
 
     private LayoutInflater inflater;
+
+    private EventBus eventBus = EventBus.getInstance();
 
     public BaseRecyclerViewAdapter(Context context, List<IDisplayItem> items) {
         this.items = items;
@@ -70,6 +73,14 @@ public class BaseRecyclerViewAdapter extends RecyclerView.Adapter<BaseRecyclerVi
     @Override
     public int getItemViewType(int position) {
         return items.get(position).getViewType().ordinal();
+    }
+
+    private void loadMore() {
+        notifyItemInserted(getItemCount());
+    }
+
+    public void notifyDataChanged(boolean loadMore) {
+        eventBus.onMainThread(loadMore ? this::loadMore : this::notifyDataSetChanged);
     }
 
     private int getLayoutId(int type) {

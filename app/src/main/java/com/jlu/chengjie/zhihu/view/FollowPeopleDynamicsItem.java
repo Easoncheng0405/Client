@@ -19,14 +19,17 @@ package com.jlu.chengjie.zhihu.view;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jlu.chengjie.zhihu.R;
-import com.jlu.chengjie.zhihu.modeal.FollowDynamics;
-import com.jlu.chengjie.zhihu.modeal.IDisplayItem;
+import com.jlu.chengjie.zhihu.event.Event;
+import com.jlu.chengjie.zhihu.event.EventBus;
+import com.jlu.chengjie.zhihu.model.FollowDynamics;
+import com.jlu.chengjie.zhihu.model.IDisplayItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,13 +55,15 @@ public class FollowPeopleDynamicsItem extends LinearLayout implements IDisplay {
     @BindView(R.id.info)
     TextView info;
 
+    private FollowDynamics dynamics;
+
     public FollowPeopleDynamicsItem(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
     @Override
     public void onBind(IDisplayItem item) {
-        FollowDynamics dynamics = (FollowDynamics) item;
+        this.dynamics = (FollowDynamics) item;
         ButterKnife.bind(this);
         title.setText(dynamics.title);
         authorName.setText(dynamics.authorName);
@@ -70,10 +75,17 @@ public class FollowPeopleDynamicsItem extends LinearLayout implements IDisplay {
                 .placeholder(R.drawable.avatar)
                 .error(R.drawable.avatar)
                 .into(avatar);
+        setOnClickListener(this);
     }
 
     @OnClick(R.id.more)
     void clickMore() {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        EventBus.getInstance().handleMsg(Event.Click.FOLLOW_PEOPLE_DYNAMICS
+                , dynamics, "FollowPeopleDynamicsItem Click.");
     }
 }

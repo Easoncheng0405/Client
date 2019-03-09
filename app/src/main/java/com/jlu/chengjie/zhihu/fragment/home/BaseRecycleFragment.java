@@ -28,8 +28,10 @@ import android.view.ViewGroup;
 
 import com.jlu.chengjie.zhihu.R;
 import com.jlu.chengjie.zhihu.adapter.BaseRecyclerViewAdapter;
+import com.jlu.chengjie.zhihu.event.IHandler;
 import com.jlu.chengjie.zhihu.fragment.IScrollToHead;
-import com.jlu.chengjie.zhihu.modeal.IDisplayItem;
+import com.jlu.chengjie.zhihu.model.IDisplayItem;
+import com.jlu.chengjie.zhihu.util.TaskRunner;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.RefreshState;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -41,7 +43,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public abstract class BaseRecycleFragment extends Fragment implements IScrollToHead {
+public abstract class BaseRecycleFragment extends Fragment implements IScrollToHead, IHandler {
 
     @BindView(R.id.list)
     RecyclerView recyclerView;
@@ -56,16 +58,19 @@ public abstract class BaseRecycleFragment extends Fragment implements IScrollToH
 
     private BaseRecyclerViewAdapter adapter;
 
-    private OnRefreshListener refreshListener = refreshLayout -> {
-        onRefresh(list, adapter);
-        adapter.notifyDataSetChanged();
-    };
+    private OnRefreshListener refreshListener = refreshLayout ->
+            TaskRunner.execute(() -> {
+                onRefresh(list, adapter);
+                adapter.notifyDataChanged(false);
+                refreshLayout.finishRefresh();
+            });
 
-    private OnLoadMoreListener loadMoreListener = refreshLayout -> {
-        int size = list.size();
-        onLoadMore(list, adapter);
-        adapter.notifyItemRangeInserted(size, list.size() - size);
-    };
+    private OnLoadMoreListener loadMoreListener = refreshLayout ->
+            TaskRunner.execute(() -> {
+                onLoadMore(list, adapter);
+                adapter.notifyDataChanged(true);
+                refreshLayout.finishLoadMore();
+            });
 
 
     protected abstract void onListInit(List<IDisplayItem> list);

@@ -19,19 +19,22 @@ package com.jlu.chengjie.zhihu.view;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.jlu.chengjie.zhihu.R;
-import com.jlu.chengjie.zhihu.modeal.IDisplayItem;
-import com.jlu.chengjie.zhihu.modeal.RecommendQuestion;
+import com.jlu.chengjie.zhihu.event.Event;
+import com.jlu.chengjie.zhihu.event.EventBus;
+import com.jlu.chengjie.zhihu.model.IDisplayItem;
+import com.jlu.chengjie.zhihu.model.RecommendQuestion;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class NormalRecommendItem extends LinearLayout implements IDisplay {
+public class RecommendQuestionItem extends LinearLayout implements IDisplay {
 
     @BindView(R.id.title)
     TextView title;
@@ -51,13 +54,15 @@ public class NormalRecommendItem extends LinearLayout implements IDisplay {
     @BindView(R.id.info)
     TextView questionInfo;
 
-    public NormalRecommendItem(Context context, @Nullable AttributeSet attrs) {
+    private RecommendQuestion question;
+
+    public RecommendQuestionItem(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
     @Override
     public void onBind(IDisplayItem item) {
-        RecommendQuestion question = (RecommendQuestion) item;
+        this.question = (RecommendQuestion) item;
         ButterKnife.bind(this);
         title.setText(question.title);
         authorName.setText(question.authorName);
@@ -69,5 +74,12 @@ public class NormalRecommendItem extends LinearLayout implements IDisplay {
                 .placeholder(R.drawable.avatar)
                 .error(R.drawable.avatar)
                 .into(avatar);
+        setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        EventBus.getInstance().handleMsg(Event.Click.RECOMMEND_QUESTION,
+                question, "RecommendQuestionItem Click.");
     }
 }

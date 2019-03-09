@@ -14,14 +14,14 @@
  *    limitations under the License.
  */
 
-package com.jlu.chengjie.zhihu.view;
+package com.jlu.chengjie.zhihu.model;
 
-import android.view.View;
+public class RecommendQuestion extends BaseListItem {
 
-import com.jlu.chengjie.zhihu.model.IDisplayItem;
+    public String signature;
 
-public interface IDisplay extends View.OnClickListener {
-
-    void onBind(IDisplayItem item);
-
+    @Override
+    public ViewType getViewType() {
+        return ViewType.NORMAL_QUESTION;
+    }
 }

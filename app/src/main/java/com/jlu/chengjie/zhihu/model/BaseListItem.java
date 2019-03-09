@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package com.jlu.chengjie.zhihu.modeal;
+package com.jlu.chengjie.zhihu.model;
 
 abstract class BaseListItem implements IDisplayItem {
     public String title;

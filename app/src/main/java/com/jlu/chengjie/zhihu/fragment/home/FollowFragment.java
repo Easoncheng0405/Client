@@ -20,16 +20,62 @@ import android.widget.Toast;
 
 import com.jlu.chengjie.zhihu.R;
 import com.jlu.chengjie.zhihu.adapter.BaseRecyclerViewAdapter;
-import com.jlu.chengjie.zhihu.modeal.FollowDynamics;
-import com.jlu.chengjie.zhihu.modeal.FollowHeader;
-import com.jlu.chengjie.zhihu.modeal.IDisplayItem;
+import com.jlu.chengjie.zhihu.event.Event;
+import com.jlu.chengjie.zhihu.event.EventBus;
+import com.jlu.chengjie.zhihu.model.FollowDynamics;
+import com.jlu.chengjie.zhihu.model.FollowHeader;
+import com.jlu.chengjie.zhihu.model.IDisplayItem;
+import com.jlu.chengjie.zhihu.util.ZLog;
 
 import java.util.List;
 
 public class FollowFragment extends BaseRecycleFragment {
 
+    private static final String TAG = "FollowFragment";
+
+    public FollowFragment() {
+        EventBus.getInstance().registered(this);
+    }
+
     @Override
     protected void onListInit(List<IDisplayItem> list) {
+        init(list);
+    }
+
+    @Override
+    protected void onLoadMore(List<IDisplayItem> list, BaseRecyclerViewAdapter adapter) {
+        ZLog.d(TAG, "start to load more data.");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < 10; i++) {
+            FollowDynamics dynamics = new FollowDynamics();
+            dynamics.title = "做一个网页是先把大致布局搭好还是慢慢从头到尾搭?";
+            dynamics.content = "陈龙: 先把大致布局搭好。以前公司招聘了一个做平面设计" +
+                    "的女生做网页，她有美术基础，会画画。但是要我从HTML开始教她。开始做" +
+                    "网页的时候，我说: 咋们先把页...";
+            dynamics.authorName = "小米吴彦祖";
+            dynamics.metaInfo = "赞同了回答 · 4 小时前";
+            dynamics.itemInfo = "94 赞同 · 245 评论 · 9 收藏";
+            list.add(dynamics);
+        }
+    }
+
+    @Override
+    protected void onRefresh(List<IDisplayItem> list, BaseRecyclerViewAdapter adapter) {
+        ZLog.d(TAG, "start to refresh data.");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        list.clear();
+        init(list);
+    }
+
+    private void init(List<IDisplayItem> list) {
         FollowHeader header = new FollowHeader();
         header.avatarUrls[0] = "http://img2.imgtn.bdimg.com/it/u=2060761043,284284863&fm=26&gp=0.jpg";
         header.avatarUrls[1] = "http://img2.imgtn.bdimg.com/it/u=3135339935,1064367009&fm=26&gp=0.jpg";
@@ -50,29 +96,24 @@ public class FollowFragment extends BaseRecycleFragment {
     }
 
     @Override
-    protected void onLoadMore(List<IDisplayItem> list, BaseRecyclerViewAdapter adapter) {
-        refreshLayout.finishLoadMore(2000, true, true);
-        for (int i = 0; i < 10; i++) {
-            FollowDynamics dynamics = new FollowDynamics();
-            dynamics.title = "做一个网页是先把大致布局搭好还是慢慢从头到尾搭?";
-            dynamics.content = "陈龙: 先把大致布局搭好。以前公司招聘了一个做平面设计" +
-                    "的女生做网页，她有美术基础，会画画。但是要我从HTML开始教她。开始做" +
-                    "网页的时候，我说: 咋们先把页...";
-            dynamics.authorName = "小米吴彦祖";
-            dynamics.metaInfo = "赞同了回答 · 4 小时前";
-            dynamics.itemInfo = "94 赞同 · 245 评论 · 9 收藏";
-            list.add(dynamics);
-        }
-    }
-
-    @Override
-    protected void onRefresh(List<IDisplayItem> list, BaseRecyclerViewAdapter adapter) {
-        Toast.makeText(getContext(), "refreshing....", Toast.LENGTH_LONG).show();
-        refreshLayout.finishRefresh(2000, true);
-    }
-
-    @Override
     protected int getLayoutId() {
         return R.layout.fragment_base_recycle;
+    }
+
+    @Override
+    public boolean handleMsg(int what, String msg, Object o) {
+        switch (what) {
+            case Event.Click.FOLLOW_PEOPLE_DYNAMICS:
+                FollowDynamics dynamics = (FollowDynamics) o;
+                Toast.makeText(getContext(), dynamics.title, Toast.LENGTH_SHORT).show();
+                break;
+            case Event.Click.FOLLOW_DISCOVER_MORE:
+                Toast.makeText(getContext(), "FOLLOW_DISCOVER_MORE", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                return false;
+        }
+        ZLog.d(TAG, "handle message " + msg);
+        return false;
     }
 }

@@ -20,31 +20,35 @@ import android.widget.Toast;
 
 import com.jlu.chengjie.zhihu.R;
 import com.jlu.chengjie.zhihu.adapter.BaseRecyclerViewAdapter;
-import com.jlu.chengjie.zhihu.modeal.IDisplayItem;
-import com.jlu.chengjie.zhihu.modeal.RecommendQuestion;
+import com.jlu.chengjie.zhihu.event.Event;
+import com.jlu.chengjie.zhihu.event.EventBus;
+import com.jlu.chengjie.zhihu.model.IDisplayItem;
+import com.jlu.chengjie.zhihu.model.RecommendQuestion;
+import com.jlu.chengjie.zhihu.util.ZLog;
 
 import java.util.List;
 
-public class Recommend extends BaseRecycleFragment {
+public class RecommendFragment extends BaseRecycleFragment {
+
+    private static final String TAG = "RecommendFragment";
+
+    public RecommendFragment() {
+        EventBus.getInstance().registered(this);
+    }
 
     @Override
     protected void onListInit(List<IDisplayItem> list) {
-        for (int i = 0; i < 10; i++) {
-            RecommendQuestion question = new RecommendQuestion();
-            question.title = "现在国内大公司主要用C?";
-            question.authorName = "Ben Lampson";
-            question.signature = "已认证的官方账号";
-            question.content = "两种语言其实没有太大差别.都有1L..就算有差距也就那样...我自己是" +
-                    ".NET.不过大部分猎头找我都是JAVA.因为J...";
-            question.itemInfo = "10赞同 · 5 评论 · 1 收藏";
-            list.add(question);
-        }
+        init(list);
     }
 
     @Override
     protected void onLoadMore(List<IDisplayItem> list, BaseRecyclerViewAdapter adapter) {
-        Toast.makeText(getContext(), "loading more....", Toast.LENGTH_LONG).show();
-        refreshLayout.finishLoadMore(2000, false, true);
+        ZLog.d(TAG, "start to load more data.");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         for (int i = 0; i < 10; i++) {
             RecommendQuestion question = new RecommendQuestion();
             question.title = "现在国内大公司主要用C#还是JAVA?";
@@ -59,12 +63,42 @@ public class Recommend extends BaseRecycleFragment {
 
     @Override
     protected void onRefresh(List<IDisplayItem> list, BaseRecyclerViewAdapter adapter) {
-        Toast.makeText(getContext(), "refreshing....", Toast.LENGTH_LONG).show();
-        refreshLayout.finishRefresh(2000, true);
+        ZLog.d(TAG, "start to refresh data.");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        list.clear();
+        init(list);
+    }
+
+    private void init(List<IDisplayItem> list) {
+        for (int i = 0; i < 10; i++) {
+            RecommendQuestion question = new RecommendQuestion();
+            question.title = "现在国内大公司主要用C?";
+            question.authorName = "Ben Lampson";
+            question.signature = "已认证的官方账号";
+            question.content = "两种语言其实没有太大差别.都有1L..就算有差距也就那样...我自己是" +
+                    ".NET.不过大部分猎头找我都是JAVA.因为J...";
+            question.itemInfo = "10赞同 · 5 评论 · 1 收藏";
+            list.add(question);
+        }
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_base_recycle;
+    }
+
+    @Override
+    public boolean handleMsg(int what, String msg, Object o) {
+        if (Event.Click.RECOMMEND_QUESTION == what) {
+            ZLog.d(TAG, "handle msg: " + msg);
+            RecommendQuestion question = (RecommendQuestion) o;
+            Toast.makeText(getContext(), question.title, Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
     }
 }
